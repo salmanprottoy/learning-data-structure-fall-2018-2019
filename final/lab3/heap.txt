@@ -1,0 +1,66 @@
+#include<iostream>
+using namespace std;
+void max_heapify(int a[],int i,int n)
+{
+    int left,right,largest_index;
+    left = 2*i+1;
+    right = 2*i+2;
+    if(left<n && a[left]>a[i])
+    {
+        largest_index = left;
+    }
+    else
+    {
+        largest_index = i;
+    }
+    if(right<n && a[right]>a[largest_index])
+    {
+        largest_index = right;
+    }
+    if(largest_index!=i)
+    {
+        swap(a[i],a[largest_index]);
+        max_heapify(a,largest_index,n);
+    }
+}
+void heap_sort(int a[], int n)
+{
+    for(int i=n-1;i>=1;i--)
+    {
+        swap(a[0],a[i]);
+        max_heapify(a,0,i);
+    }
+}
+void build_heap(int a[],int n)
+{
+    for(int i=n/2-1;i>=0;i--)
+    {
+        max_heapify(a,i,n);
+    }
+}
+int main()
+{
+    int a[100],n;
+    cout<<"Size: "<<endl;
+    cin>>n;
+    cout<<"Input: "<<endl;
+    for(int i=0;i<n;i++)
+    {
+        cin>>a[i];
+    }
+    build_heap(a,n);
+    cout<<"Heap: "<<endl;
+    for(int i=0;i<n;i++)
+    {
+        cout<<a[i]<<" ";
+    }
+    cout<<endl;
+    cout<<"Sorted heap: "<<endl;
+    heap_sort(a,n);
+    for(int i=0;i<n;i++)
+    {
+        cout<<a[i]<<" ";
+    }
+    cout<<endl;
+    return 0;
+}
